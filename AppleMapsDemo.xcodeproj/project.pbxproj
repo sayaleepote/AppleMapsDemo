@@ -14,6 +14,8 @@
 		484DA9EF20AE94030060B164 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484DA9ED20AE94030060B164 /* LaunchScreen.storyboard */; };
 		484DA9F720AEE9710060B164 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484DA9F620AEE9710060B164 /* LocationListViewController.swift */; };
 		484DA9F920AEE9850060B164 /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484DA9F820AEE9850060B164 /* AddLocationViewController.swift */; };
+		4893371420B3F0E900DB515B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4893371320B3F0E900DB515B /* MapViewController.swift */; };
+		48B5D9F720B540F600184BD9 /* MapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B5D9F620B540F600184BD9 /* MapAnnotationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		484DA9F020AE94030060B164 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		484DA9F620AEE9710060B164 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		484DA9F820AEE9850060B164 /* AddLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
+		4893371320B3F0E900DB515B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		48B5D9F620B540F600184BD9 /* MapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				484DA9E820AE94030060B164 /* AppleMapsDemo.xcdatamodeld */,
 				484DA9F620AEE9710060B164 /* LocationListViewController.swift */,
 				484DA9F820AEE9850060B164 /* AddLocationViewController.swift */,
+				4893371320B3F0E900DB515B /* MapViewController.swift */,
+				48B5D9F620B540F600184BD9 /* MapAnnotationView.swift */,
 			);
 			path = AppleMapsDemo;
 			sourceTree = "<group>";
@@ -142,9 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48B5D9F720B540F600184BD9 /* MapAnnotationView.swift in Sources */,
 				484DA9EA20AE94030060B164 /* AppleMapsDemo.xcdatamodeld in Sources */,
 				484DA9F720AEE9710060B164 /* LocationListViewController.swift in Sources */,
 				484DA9E220AE94030060B164 /* AppDelegate.swift in Sources */,
+				4893371420B3F0E900DB515B /* MapViewController.swift in Sources */,
 				484DA9F920AEE9850060B164 /* AddLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

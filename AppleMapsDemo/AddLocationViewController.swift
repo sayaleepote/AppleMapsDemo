@@ -7,29 +7,51 @@
 //
 
 import UIKit
+import CoreData
 
 class AddLocationViewController: UIViewController {
 
+    @IBOutlet weak var locationName: UITextField!
+    @IBOutlet weak var latitude: UITextField!
+    @IBOutlet weak var longitude: UITextField!
+    
+    private let managedContext =
+        AppDelegate.shared.persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func saveTapped(_ sender: Any) {
+        if let title = locationName.text, !title.isEmpty,
+            let latitude = latitude.text, !latitude.isEmpty,
+            let longitude = longitude.text, !longitude.isEmpty {
+            let location = Location(context: managedContext)
+            location.setValuesForKeys(["title" : title, "lat": latitude, "long": longitude])
+            AppDelegate.shared.saveContext()
+            let alert = UIAlertController (title: "", message: "Location saved!", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            let alert = UIAlertController (title: "", message: "Please input all the fields.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        resetTextFields()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func useCurrentLocationTapped(_ sender: Any) {
+        
     }
-    */
-
+    
+    func resetTextFields() {
+        locationName.text = ""
+        latitude.text = ""
+        longitude.text = ""
+    }
 }

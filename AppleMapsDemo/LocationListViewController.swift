@@ -7,29 +7,85 @@
 //
 
 import UIKit
+import CoreData
 
-class LocationListViewController: UIViewController {
+class LocationListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    let managedContext = AppDelegate.shared.persistentContainer.viewContext
+    var locationList: [Location] = []
+    var selectedIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchLocationList()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
+    func fetchLocationList() {
+        locationList = []
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Location")
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        let sortDescriptors = [sortDescriptor]
+        fetchRequest.sortDescriptors = sortDescriptors
+        
+        do {
+            if let result = try managedContext.fetch(fetchRequest) as? [Location] {
+                locationList = result
+                self.tableView.reloadData()
+            }
+        } catch {
+            debugPrint("Fetch Error!")
+        }
+    }
+    
+    //MARK:- UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locationList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath)
+        let location = locationList[indexPath.row]
+        cell.textLabel?.text = location.title
+        
+        if let lat = location.lat, let long = location.long {
+            cell.detailTextLabel?.text =  "Lat: " + lat + ", Long: " + long
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedIndex = indexPath.row
+        return indexPath
+    }
+    
+ 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let segueIdentifier = segue.identifier else {
+            return
+        }
+        
+        if segueIdentifier == "ShowMap" {
+            let mapViewController = segue.destination as? MapViewController
+            mapViewController?.location = locationList[selectedIndex]
+        }
     }
-    */
+   
 
 }

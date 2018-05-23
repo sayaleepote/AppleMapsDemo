@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="me0-G9-FSl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="97k-lE-wsT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Location List-->
         <scene sceneID="Ppi-v7-yIH">
             <objects>
-                <viewController id="BeY-j0-8cc" sceneMemberID="viewController">
+                <viewController id="BeY-j0-8cc" customClass="LocationListViewController" customModule="AppleMapsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I0M-ek-ad1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="JHi-qU-Vye" kind="show" id="qAx-OY-P5A"/>
+                                            <segue destination="QkW-Vy-qEG" kind="show" identifier="ShowMap" id="RaX-6a-REB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -62,17 +62,24 @@
                         <viewLayoutGuide key="safeArea" id="BVD-BL-dfp"/>
                     </view>
                     <navigationItem key="navigationItem" title="Location List" id="djP-lB-3y9">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NGv-ah-C1F"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NGv-ah-C1F">
+                            <connections>
+                                <segue destination="JHi-qU-Vye" kind="show" id="SGB-0M-zJ4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="wt9-u3-H1I" id="zDT-gr-DSr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Rr-jZ-YlT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-25" y="-565"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Location View Controller-->
         <scene sceneID="y7t-yM-pDs">
             <objects>
-                <viewController id="JHi-qU-Vye" sceneMemberID="viewController">
+                <viewController id="JHi-qU-Vye" customClass="AddLocationViewController" customModule="AppleMapsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tk0-vO-EAN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,20 +94,23 @@
                                 <rect key="frame" x="108" y="131" width="251" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JbU-qy-5HM">
                                 <rect key="frame" x="108" y="180" width="251" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wo3-Nd-vEI">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wo3-Nd-vEI">
                                 <rect key="frame" x="16" y="258" width="146" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="XVf-YA-RCX"/>
                                 </constraints>
                                 <state key="normal" title="Use Current Location"/>
+                                <connections>
+                                    <action selector="useCurrentLocationTapped:" destination="JHi-qU-Vye" eventType="touchUpInside" id="6s5-55-3lH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u29-bK-f7q">
                                 <rect key="frame" x="16" y="82" width="33.5" height="21"/>
@@ -126,6 +136,9 @@
                                     <constraint firstAttribute="height" constant="30" id="ODw-ut-Bxy"/>
                                 </constraints>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveTapped:" destination="JHi-qU-Vye" eventType="touchUpInside" id="47A-e8-2eM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -153,15 +166,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="STD-dZ-ltY"/>
                     </view>
+                    <connections>
+                        <outlet property="latitude" destination="nOJ-gb-zkk" id="hQF-Jw-eUg"/>
+                        <outlet property="locationName" destination="pqi-bR-ZU2" id="Se6-oa-rZW"/>
+                        <outlet property="longitude" destination="JbU-qy-5HM" id="ew5-Zy-tSu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFB-L7-jPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1050" y="-565"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="nBg-n8-yve">
             <objects>
-                <viewController id="QkW-Vy-qEG" sceneMemberID="viewController">
+                <viewController id="QkW-Vy-qEG" customClass="MapViewController" customModule="AppleMapsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y8f-Hk-yea">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -179,23 +197,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0VE-NS-F1s"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="Zt5-Tg-rbf" id="yPz-0J-bBa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Egh-wZ-YPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951.20000000000005" y="306.6502463054187"/>
-        </scene>
-        <!--Split View Controller-->
-        <scene sceneID="WZz-Dt-i1C">
-            <objects>
-                <splitViewController id="me0-G9-FSl" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="QkW-Vy-qEG" kind="relationship" relationship="detailViewController" id="auV-Ul-Nbm"/>
-                        <segue destination="97k-lE-wsT" kind="relationship" relationship="masterViewController" id="WrI-RQ-BHk"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ear-i9-vpP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1905" y="-194"/>
+            <point key="canvasLocation" x="-26" y="204"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3xb-0o-Xqp">
