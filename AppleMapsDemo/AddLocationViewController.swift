@@ -38,6 +38,7 @@ class AddLocationViewController: UIViewController {
                 usleep(500000)
                 alert.dismiss(animated: true, completion: nil)
             })
+            resetTextFields()
         }
         else {
             let alert = UIAlertController (title: "", message: "Please input all the fields.", preferredStyle: .alert)
@@ -45,7 +46,6 @@ class AddLocationViewController: UIViewController {
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
         }
-        resetTextFields()
     }
     
     @IBAction func useCurrentLocationTapped(_ sender: Any) {

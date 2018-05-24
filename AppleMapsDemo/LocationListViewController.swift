@@ -18,17 +18,42 @@ class LocationListViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchLocationList()
+        
+        let subviews = tableView.subviews
+        for subview in subviews {
+            subview.removeFromSuperview()
+        }
+
+        if locationList.count == 0 {
+            addListEmptyLabel()
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableFooterView = UIView()
+    }
+    
+    func addListEmptyLabel() {
+        let messageLabel = UILabel(frame: CGRect(x: 20, y: tableView.frame.height/2 - 50, width: tableView.frame.width - 40, height: 50))
+        messageLabel.text = NSLocalizedString("Please add locations using \u{FF0B} button at top right corner.", comment: "")
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont(name: "Helvetica", size: 16)
+        messageLabel.textColor = #colorLiteral(red: 0.7719142122, green: 0.7945639071, blue: 0.8187171569, alpha: 1)
+        messageLabel.numberOfLines = 0
+        messageLabel.lineBreakMode = .byWordWrapping
+        tableView.addSubview(messageLabel)
     }
     
     func fetchLocationList() {
