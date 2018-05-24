@@ -34,7 +34,10 @@ class AddLocationViewController: UIViewController {
             location.setValuesForKeys(["title" : title, "lat": latitude, "long": longitude])
             AppDelegate.shared.saveContext()
             let alert = UIAlertController (title: "", message: "Location saved!", preferredStyle: .alert)
-            self.present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: { () in
+                usleep(500000)
+                alert.dismiss(animated: true, completion: nil)
+            })
         }
         else {
             let alert = UIAlertController (title: "", message: "Please input all the fields.", preferredStyle: .alert)
